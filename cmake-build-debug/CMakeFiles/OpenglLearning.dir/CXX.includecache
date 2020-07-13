@@ -6,28 +6,26 @@
 
 #IncludeRegexTransform: 
 
-/Users/gaomingyang/Documents/MG/MIGUWorkSpace/OpenGLWorkSpace/CodeTest/OpenglLearning/main.cpp
-iostream
--
-glew.h
--
-glfw3.h
--
-
-/usr/local/Cellar/glew/2.1.0_1/include/GL/glew.h
-stddef.h
+../glad/include/KHR/khrplatform.h
+stdint.h
 -
 inttypes.h
 -
 stdint.h
 -
-inttypes.h
+
+../glad/include/glad/glad.h
+KHR/khrplatform.h
 -
-Availability.h
+
+/Users/gaomingyang/Documents/MG/MIGUWorkSpace/OpenGLWorkSpace/CodeTest/OpenglLearning/main.cpp
+glad/glad.h
 -
-OpenGL/glu.h
+glfw3.h
 -
-GL/glu.h
+iostream
+-
+cmath
 -
 
 /usr/local/Cellar/glfw/3.3.2/include/GLFW/glfw3.h

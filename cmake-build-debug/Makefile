@@ -123,6 +123,33 @@ OpenglLearning/fast:
 	$(MAKE) -f CMakeFiles/OpenglLearning.dir/build.make CMakeFiles/OpenglLearning.dir/build
 .PHONY : OpenglLearning/fast
 
+glad/src/glad.o: glad/src/glad.c.o
+
+.PHONY : glad/src/glad.o
+
+# target to build an object file
+glad/src/glad.c.o:
+	$(MAKE) -f CMakeFiles/OpenglLearning.dir/build.make CMakeFiles/OpenglLearning.dir/glad/src/glad.c.o
+.PHONY : glad/src/glad.c.o
+
+glad/src/glad.i: glad/src/glad.c.i
+
+.PHONY : glad/src/glad.i
+
+# target to preprocess a source file
+glad/src/glad.c.i:
+	$(MAKE) -f CMakeFiles/OpenglLearning.dir/build.make CMakeFiles/OpenglLearning.dir/glad/src/glad.c.i
+.PHONY : glad/src/glad.c.i
+
+glad/src/glad.s: glad/src/glad.c.s
+
+.PHONY : glad/src/glad.s
+
+# target to generate assembly for a file
+glad/src/glad.c.s:
+	$(MAKE) -f CMakeFiles/OpenglLearning.dir/build.make CMakeFiles/OpenglLearning.dir/glad/src/glad.c.s
+.PHONY : glad/src/glad.c.s
+
 main.o: main.cpp.o
 
 .PHONY : main.o
@@ -159,6 +186,9 @@ help:
 	@echo "... rebuild_cache"
 	@echo "... edit_cache"
 	@echo "... OpenglLearning"
+	@echo "... glad/src/glad.o"
+	@echo "... glad/src/glad.i"
+	@echo "... glad/src/glad.s"
 	@echo "... main.o"
 	@echo "... main.i"
 	@echo "... main.s"

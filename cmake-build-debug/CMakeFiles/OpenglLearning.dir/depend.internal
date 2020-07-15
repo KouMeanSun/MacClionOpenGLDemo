@@ -10,3 +10,5 @@ CMakeFiles/OpenglLearning.dir/main.cpp.o
  ../glad/include/glad/glad.h
  /Users/gaomingyang/Documents/MG/MIGUWorkSpace/OpenGLWorkSpace/CodeTest/OpenglLearning/main.cpp
  /usr/local/Cellar/glfw/3.3.2/include/GLFW/glfw3.h
+CMakeFiles/OpenglLearning.dir/src/Shader.cpp.o
+ /Users/gaomingyang/Documents/MG/MIGUWorkSpace/OpenGLWorkSpace/CodeTest/OpenglLearning/src/Shader.cpp

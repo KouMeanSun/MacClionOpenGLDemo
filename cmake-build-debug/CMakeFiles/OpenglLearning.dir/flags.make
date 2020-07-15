@@ -7,11 +7,11 @@ C_FLAGS = -g -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacO
 
 C_DEFINES = 
 
-C_INCLUDES = -I/usr/local/Cellar/glew/2.1.0_1/include/GL -I/usr/local/Cellar/glfw/3.3.2/include/GLFW -I/Users/gaomingyang/Documents/MG/MIGUWorkSpace/OpenGLWorkSpace/CodeTest/OpenglLearning/glad/include 
+C_INCLUDES = -I/usr/local/Cellar/glew/2.1.0_1/include/GL -I/usr/local/Cellar/glfw/3.3.2/include/GLFW -I/Users/gaomingyang/Documents/MG/MIGUWorkSpace/OpenGLWorkSpace/CodeTest/OpenglLearning/include -I/Users/gaomingyang/Documents/MG/MIGUWorkSpace/OpenGLWorkSpace/CodeTest/OpenglLearning/glad/include 
 
 CXX_FLAGS = -g -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.15.sdk   -std=gnu++14
 
 CXX_DEFINES = 
 
-CXX_INCLUDES = -I/usr/local/Cellar/glew/2.1.0_1/include/GL -I/usr/local/Cellar/glfw/3.3.2/include/GLFW -I/Users/gaomingyang/Documents/MG/MIGUWorkSpace/OpenGLWorkSpace/CodeTest/OpenglLearning/glad/include 
+CXX_INCLUDES = -I/usr/local/Cellar/glew/2.1.0_1/include/GL -I/usr/local/Cellar/glfw/3.3.2/include/GLFW -I/Users/gaomingyang/Documents/MG/MIGUWorkSpace/OpenGLWorkSpace/CodeTest/OpenglLearning/include -I/Users/gaomingyang/Documents/MG/MIGUWorkSpace/OpenGLWorkSpace/CodeTest/OpenglLearning/glad/include 
 

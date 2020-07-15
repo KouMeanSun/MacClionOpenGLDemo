@@ -10,3 +10,5 @@ CMakeFiles/OpenglLearning.dir/main.cpp.o: ../glad/include/glad/glad.h
 CMakeFiles/OpenglLearning.dir/main.cpp.o: ../main.cpp
 CMakeFiles/OpenglLearning.dir/main.cpp.o: /usr/local/Cellar/glfw/3.3.2/include/GLFW/glfw3.h
 
+CMakeFiles/OpenglLearning.dir/src/Shader.cpp.o: ../src/Shader.cpp
+

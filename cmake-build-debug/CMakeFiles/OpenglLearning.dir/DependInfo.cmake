@@ -13,10 +13,12 @@ set(CMAKE_C_COMPILER_ID "AppleClang")
 set(CMAKE_C_TARGET_INCLUDE_PATH
   "/usr/local/Cellar/glew/2.1.0_1/include/GL"
   "/usr/local/Cellar/glfw/3.3.2/include/GLFW"
+  "../include"
   "../glad/include"
   )
 set(CMAKE_DEPENDS_CHECK_CXX
   "/Users/gaomingyang/Documents/MG/MIGUWorkSpace/OpenGLWorkSpace/CodeTest/OpenglLearning/main.cpp" "/Users/gaomingyang/Documents/MG/MIGUWorkSpace/OpenGLWorkSpace/CodeTest/OpenglLearning/cmake-build-debug/CMakeFiles/OpenglLearning.dir/main.cpp.o"
+  "/Users/gaomingyang/Documents/MG/MIGUWorkSpace/OpenGLWorkSpace/CodeTest/OpenglLearning/src/Shader.cpp" "/Users/gaomingyang/Documents/MG/MIGUWorkSpace/OpenGLWorkSpace/CodeTest/OpenglLearning/cmake-build-debug/CMakeFiles/OpenglLearning.dir/src/Shader.cpp.o"
   )
 set(CMAKE_CXX_COMPILER_ID "AppleClang")
 
@@ -24,6 +26,7 @@ set(CMAKE_CXX_COMPILER_ID "AppleClang")
 set(CMAKE_CXX_TARGET_INCLUDE_PATH
   "/usr/local/Cellar/glew/2.1.0_1/include/GL"
   "/usr/local/Cellar/glfw/3.3.2/include/GLFW"
+  "../include"
   "../glad/include"
   )
 

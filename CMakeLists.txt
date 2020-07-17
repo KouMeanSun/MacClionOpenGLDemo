@@ -8,7 +8,12 @@ set(GLFW_H /usr/local/Cellar/glfw/3.3.2/include/GLFW)
 include_directories(${GLEW_H}
                     ${GLFW_H}
                     ${CMAKE_SOURCE_DIR}/include
-                    ${CMAKE_SOURCE_DIR}/glad/include)
+                    ${CMAKE_SOURCE_DIR}/glad/include
+                    ${CMAKE_SOURCE_DIR}/glm
+                    ${CMAKE_SOURCE_DIR}/glm/detail
+                    ${CMAKE_SOURCE_DIR}/glm/gtc
+                    ${CMAKE_SOURCE_DIR}/glm/gtx
+        )
 
 # 添加目标链接
 set(GLEW_LINK /usr/local/Cellar/glew/2.1.0_1/lib/libGLEW.2.1.0.dylib)
@@ -23,7 +28,7 @@ file(GLOB SRC
         )
 
 set(SOURCE_FILES
-        ${SRC})
+        ${SRC} include/LearnShader.h)
 add_executable(OpenglLearning ${SOURCE_FILES})
 
 if (APPLE)

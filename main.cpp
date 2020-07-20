@@ -47,6 +47,10 @@ int main(){
         return -1;
     }
 
+    // configure gloabl opengl state
+    //==========
+    glEnable(GL_DEPTH_TEST);
+
     //build and compile our shader zprogram
     Shader ourShader("../shaderFiles/6.1.coordinate_systems.vs","../shaderFiles/6.1.coordinate_systems.fs");
 

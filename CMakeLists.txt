@@ -28,7 +28,8 @@ file(GLOB SRC
         )
 
 set(SOURCE_FILES
-        ${SRC} include/LearnShader.h)
+        ${SRC} include/LearnShader.h
+        include/camera.h)
 add_executable(OpenglLearning ${SOURCE_FILES})
 
 if (APPLE)

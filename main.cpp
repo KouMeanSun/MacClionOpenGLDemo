@@ -73,8 +73,8 @@ int main(){
 
     // build and compile our shader zprogram
     //--------------------
-    Shader lightingShader("../shaderFiles/4.1.lighting_maps.vs","../shaderFiles/4.1.lighting_maps.fs");
-    Shader lightCubeShader("../shaderFiles/4.1.light_cube.vs","../shaderFiles/4.1.light_cube.fs");
+    Shader lightingShader("../shaderFiles/4.2.lighting_maps.vs","../shaderFiles/4.2.lighting_maps.fs");
+    Shader lightCubeShader("../shaderFiles/4.2.light_cube.vs","../shaderFiles/4.2.light_cube.fs");
 
     // set up vertex data (and buffer(s)) and configure vertex atrributes
     //-----------------------------
@@ -159,6 +159,7 @@ int main(){
     //---------------------
     lightingShader.use();
     lightingShader.setInt("material.diffuse",0);
+    lightingShader.setInt("material.specular",1);
 
     // render loop
     // ---------
@@ -197,7 +198,7 @@ int main(){
         // material properties
 //        lightingShader.setVec3("material.ambient",1.0f,0.5f,0.31f);
 //        lightingShader.setVec3("material.diffuse",1.0f,0.5f,0.31f);
-        lightingShader.setVec3("material.specular",0.5f,0.5f,0.5f);// specular lighting donesn't have full effect on this object's material
+//        lightingShader.setVec3("material.specular",0.5f,0.5f,0.5f);// specular lighting donesn't have full effect on this object's material
         lightingShader.setFloat("material.shininess",64.0f);
 
         // view/projection transformations
@@ -230,6 +231,7 @@ int main(){
         glBindVertexArray(lightCubeVAO);
         glDrawArrays(GL_TRIANGLES,0,36);
 
+        //glfw: swap buffers and poll IO events (keys pressed/released,mouse moved etc.)
         //glfw: swap buffers and poll IO events (keys pressed/released,mouse moved etc.)
         //----------
         glfwSwapBuffers(window);

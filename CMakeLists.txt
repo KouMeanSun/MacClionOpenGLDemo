@@ -18,7 +18,9 @@ include_directories(${GLEW_H}
 # 添加目标链接
 set(GLEW_LINK /usr/local/Cellar/glew/2.1.0_1/lib/libGLEW.2.1.0.dylib)
 set(GLFW_LINK /usr/local/Cellar/glfw/3.3.2/lib/libglfw.3.3.dylib)
-link_libraries(${OPENGL} ${GLEW_LINK} ${GLFW_LINK})
+set(ASSIMP /usr/local/Cellar/assimp/5.0.1/lib/libassimp.5.0.0.dylib)
+
+link_libraries(${OPENGL} ${GLEW_LINK} ${GLFW_LINK} ${ASSIMP})
 
 # 执行编译命令
 file(GLOB SRC
@@ -29,7 +31,7 @@ file(GLOB SRC
 
 set(SOURCE_FILES
         ${SRC} include/LearnShader.h
-        include/camera.h)
+        include/camera.h include/Mesh.h include/Model.h)
 add_executable(OpenglLearning ${SOURCE_FILES})
 
 if (APPLE)

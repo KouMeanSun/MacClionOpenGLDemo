@@ -1,12 +1,12 @@
 #include <glad/glad.h>
 #include <glfw3.h>
 #define STB_IMAGE_IMPLEMENTATION
-#include "stb_image.h"
 
 #include <glm.hpp>
 #include <matrix_transform.hpp>
 #include <type_ptr.hpp>
 #include <LearnShader.h>
+#include <Model.h>
 #include <camera.h>
 
 #include <iostream>
@@ -67,99 +67,21 @@ int main(){
         std::cout << "Failed to initialize GLAD" << std::endl;
         return -1;
     }
+
+    // tell stb_image.h to flip loaded texture's on the y-axis (before loading model).
+    stbi_set_flip_vertically_on_load(true);
+
     // configure global opengl state
     ///------------
     glEnable(GL_DEPTH_TEST);
 
     // build and compile our shader zprogram
     //--------------------
-    Shader lightingShader("../shaderFiles/4.2.lighting_maps.vs","../shaderFiles/4.2.lighting_maps.fs");
-    Shader lightCubeShader("../shaderFiles/4.2.light_cube.vs","../shaderFiles/4.2.light_cube.fs");
+    Shader ourShader("../shaderFiles/1.model_loading.vs","../shaderFiles/1.model_loading.fs");
 
-    // set up vertex data (and buffer(s)) and configure vertex atrributes
-    //-----------------------------
-    float vertices[] = {
-            // positions          // normals           // texture coords
-            -0.5f, -0.5f, -0.5f,  0.0f,  0.0f, -1.0f,  0.0f,  0.0f,
-            0.5f, -0.5f, -0.5f,  0.0f,  0.0f, -1.0f,  1.0f,  0.0f,
-            0.5f,  0.5f, -0.5f,  0.0f,  0.0f, -1.0f,  1.0f,  1.0f,
-            0.5f,  0.5f, -0.5f,  0.0f,  0.0f, -1.0f,  1.0f,  1.0f,
-            -0.5f,  0.5f, -0.5f,  0.0f,  0.0f, -1.0f,  0.0f,  1.0f,
-            -0.5f, -0.5f, -0.5f,  0.0f,  0.0f, -1.0f,  0.0f,  0.0f,
-
-            -0.5f, -0.5f,  0.5f,  0.0f,  0.0f,  1.0f,  0.0f,  0.0f,
-            0.5f, -0.5f,  0.5f,  0.0f,  0.0f,  1.0f,  1.0f,  0.0f,
-            0.5f,  0.5f,  0.5f,  0.0f,  0.0f,  1.0f,  1.0f,  1.0f,
-            0.5f,  0.5f,  0.5f,  0.0f,  0.0f,  1.0f,  1.0f,  1.0f,
-            -0.5f,  0.5f,  0.5f,  0.0f,  0.0f,  1.0f,  0.0f,  1.0f,
-            -0.5f, -0.5f,  0.5f,  0.0f,  0.0f,  1.0f,  0.0f,  0.0f,
-
-            -0.5f,  0.5f,  0.5f, -1.0f,  0.0f,  0.0f,  1.0f,  0.0f,
-            -0.5f,  0.5f, -0.5f, -1.0f,  0.0f,  0.0f,  1.0f,  1.0f,
-            -0.5f, -0.5f, -0.5f, -1.0f,  0.0f,  0.0f,  0.0f,  1.0f,
-            -0.5f, -0.5f, -0.5f, -1.0f,  0.0f,  0.0f,  0.0f,  1.0f,
-            -0.5f, -0.5f,  0.5f, -1.0f,  0.0f,  0.0f,  0.0f,  0.0f,
-            -0.5f,  0.5f,  0.5f, -1.0f,  0.0f,  0.0f,  1.0f,  0.0f,
-
-            0.5f,  0.5f,  0.5f,  1.0f,  0.0f,  0.0f,  1.0f,  0.0f,
-            0.5f,  0.5f, -0.5f,  1.0f,  0.0f,  0.0f,  1.0f,  1.0f,
-            0.5f, -0.5f, -0.5f,  1.0f,  0.0f,  0.0f,  0.0f,  1.0f,
-            0.5f, -0.5f, -0.5f,  1.0f,  0.0f,  0.0f,  0.0f,  1.0f,
-            0.5f, -0.5f,  0.5f,  1.0f,  0.0f,  0.0f,  0.0f,  0.0f,
-            0.5f,  0.5f,  0.5f,  1.0f,  0.0f,  0.0f,  1.0f,  0.0f,
-
-            -0.5f, -0.5f, -0.5f,  0.0f, -1.0f,  0.0f,  0.0f,  1.0f,
-            0.5f, -0.5f, -0.5f,  0.0f, -1.0f,  0.0f,  1.0f,  1.0f,
-            0.5f, -0.5f,  0.5f,  0.0f, -1.0f,  0.0f,  1.0f,  0.0f,
-            0.5f, -0.5f,  0.5f,  0.0f, -1.0f,  0.0f,  1.0f,  0.0f,
-            -0.5f, -0.5f,  0.5f,  0.0f, -1.0f,  0.0f,  0.0f,  0.0f,
-            -0.5f, -0.5f, -0.5f,  0.0f, -1.0f,  0.0f,  0.0f,  1.0f,
-
-            -0.5f,  0.5f, -0.5f,  0.0f,  1.0f,  0.0f,  0.0f,  1.0f,
-            0.5f,  0.5f, -0.5f,  0.0f,  1.0f,  0.0f,  1.0f,  1.0f,
-            0.5f,  0.5f,  0.5f,  0.0f,  1.0f,  0.0f,  1.0f,  0.0f,
-            0.5f,  0.5f,  0.5f,  0.0f,  1.0f,  0.0f,  1.0f,  0.0f,
-            -0.5f,  0.5f,  0.5f,  0.0f,  1.0f,  0.0f,  0.0f,  0.0f,
-            -0.5f,  0.5f, -0.5f,  0.0f,  1.0f,  0.0f,  0.0f,  1.0f
-    };
-    // first, configure the cube's VAO (and VBO)
-    unsigned int VBO,cubeVAO;
-    glGenVertexArrays(1,&cubeVAO);
-    glGenBuffers(1,&VBO);
-
-    glBindBuffer(GL_ARRAY_BUFFER,VBO);
-    glBufferData(GL_ARRAY_BUFFER,sizeof(vertices),vertices,GL_STATIC_DRAW);
-
-    glBindVertexArray(cubeVAO);
-    // position attribute
-    glVertexAttribPointer(0,3,GL_FLOAT,GL_FALSE,8 * sizeof(float ),(void*)0);
-    glEnableVertexAttribArray(0);
-    // normal attribute
-    glVertexAttribPointer(1,3,GL_FLOAT,GL_FALSE,8* sizeof(float ),(void *)(3 * sizeof(float )));
-    glEnableVertexAttribArray(1);
-    //texture coords
-    glVertexAttribPointer(2,2,GL_FLOAT,GL_FALSE,8*sizeof(float),(void *)(6*sizeof(float )));
-    glEnableVertexAttribArray(2);
-
-    // second,configure the light's VAO (VBO stays the same:the vertices are the same for the light object which is also 3D cube)
-    unsigned int lightCubeVAO;
-    glGenVertexArrays(1,&lightCubeVAO);
-    glBindVertexArray(lightCubeVAO);
-
-    glBindBuffer(GL_ARRAY_BUFFER,VBO);
-    // note that we update the lamp's position atrtribute's stride to reflect the updated buffer data
-    glVertexAttribPointer(0,3,GL_FLOAT,GL_FALSE,8*sizeof(float ) ,(void  *)0);
-    glEnableVertexAttribArray(0);
-
-    // load textures (we now use a utility function to keep the code more organized)
-    //-------------------------------------------------------------------------------
-    unsigned int diffuseMap = loadTexture("../imgs/container2.png");
-    unsigned int specularMap = loadTexture("../imgs/container2_specular.png");
-    // shader configuration
-    //---------------------
-    lightingShader.use();
-    lightingShader.setInt("material.diffuse",0);
-    lightingShader.setInt("material.specular",1);
+    //load models
+    //-----
+    Model ourModel("../obj/backpack/backpack.obj");
 
     // render loop
     // ---------
@@ -176,73 +98,29 @@ int main(){
 
         // render
         //---------
-        glClearColor(0.1f,0.1f,0.1f,1.0f);
+        glClearColor(0.05f,0.05f,0.05f,1.0f);
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
         // BE SURE TO ACTIVATE SHADER WHEN SETTING UNIFORMS/DRAWING OBJECTS
-        lightingShader.use();
-        lightingShader.setVec3("light.position",lightPos);
-        lightingShader.setVec3("viewPos",camera.Position);
-
-        // light properties
-//        glm::vec3 lightColor;
-//        lightColor.x = sin(glfwGetTime() * 2.0f);
-//        lightColor.y = sin(glfwGetTime() * 0.7f);
-//        lightColor.z = sin(glfwGetTime() * 1.3f);
-//        glm::vec3 diffuseColor = lightColor * glm::vec3(0.5f); // decrease th influence
-//        glm::vec3 ambientColor = diffuseColor * glm::vec3(0.2f); // low influence
-        lightingShader.setVec3("light.ambient",0.2f,0.2f,0.2f);
-        lightingShader.setVec3("light.diffuse",0.5f,0.5f,0.5f);
-        lightingShader.setVec3("light.specular",1.0f,1.0f,1.0f);
-
-        // material properties
-//        lightingShader.setVec3("material.ambient",1.0f,0.5f,0.31f);
-//        lightingShader.setVec3("material.diffuse",1.0f,0.5f,0.31f);
-//        lightingShader.setVec3("material.specular",0.5f,0.5f,0.5f);// specular lighting donesn't have full effect on this object's material
-        lightingShader.setFloat("material.shininess",64.0f);
-
+        // don't forget to enable shader before setting uniforms
+        ourShader.use();
         // view/projection transformations
         glm::mat4 projection = glm::perspective(glm::radians(camera.Zoom),(float)SCR_WIDTH/(float )SCR_HEIGHT,0.1f,100.0f);
         glm::mat4 view = camera.GetViewMatrix();
-        lightingShader.setMat4("projection",projection);
-        lightingShader.setMat4("view",view);
+        ourShader.setMat4("projection",projection);
+        ourShader.setMat4("view",view);
 
-        // world transformation
+        // render the loaded model
         glm::mat4 model = glm::mat4(1.0f);
-        lightingShader.setMat4("model",model);
-
-        // bind diffuse map
-        glActiveTexture(GL_TEXTURE0);
-        glBindTexture(GL_TEXTURE_2D,diffuseMap);
-
-        // render the cube
-        glBindVertexArray(cubeVAO);
-        glDrawArrays(GL_TRIANGLES,0,36);
-
-        // also draw the lamp object
-        lightCubeShader.use();
-        lightCubeShader.setMat4("projection",projection);
-        lightCubeShader.setMat4("view",view);
-        model = glm::mat4(1.0f);
-        model = glm::translate(model,lightPos);
-        model = glm::scale(model,glm::vec3(0.2f));// a smaller cube
-        lightCubeShader.setMat4("model",model);
-
-        glBindVertexArray(lightCubeVAO);
-        glDrawArrays(GL_TRIANGLES,0,36);
-
-        //glfw: swap buffers and poll IO events (keys pressed/released,mouse moved etc.)
+        model = glm::translate(model, glm::vec3(0.0f, 0.0f, 0.0f)); // translate it down so it's at the center of the scene
+        model = glm::scale(model, glm::vec3(1.0f, 1.0f, 1.0f));	// it's a bit too big for our scene, so scale it down
+        ourShader.setMat4("model", model);
+        ourModel.Draw(ourShader);
         //glfw: swap buffers and poll IO events (keys pressed/released,mouse moved etc.)
         //----------
         glfwSwapBuffers(window);
         glfwPollEvents();
     }
-
-    // optional: de-allocate all resources once they've outlived their purpose;
-    //---------------------
-    glDeleteVertexArrays(1,&cubeVAO);
-    glDeleteVertexArrays(1,&lightCubeVAO);
-    glDeleteBuffers(1, &VBO);
 
     // glfw: terminate,clearing all previously allocated GLFW resources.
     //---------
